@@ -2,6 +2,8 @@ require('dotenv').config();
 
 const line = require('@line/bot-sdk');
 const express = require('express');
+const { Configuration, OpenAIApi } = require("openai");
+
 
 // create LINE SDK config from env variables
 const config = {
@@ -11,6 +13,12 @@ const config = {
 
 // create LINE SDK client
 const client = new line.Client(config);
+
+// create openai
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(configuration);
 
 // create Express app
 // about Express itself: https://expressjs.com/
@@ -29,15 +37,21 @@ app.post('/callback', line.middleware(config), (req, res) => {
 });
 
 // event handler
-function handleEvent(event) {
+async function handleEvent(event) {
   if (event.type !== 'message' || event.message.type !== 'text') {
     // ignore non-text-message event
     return Promise.resolve(null);
   }
 
-  // create a echoing text message
-  const echo = { type: 'text', text: event.message.text };
+  const completion = await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: event.message.text ,
+    max_tokens: 200,
+  });
 
+  // create a echoing text message
+  //const echo = { type: 'text', text: completion.data.choices[0].text };
+  const echo = { type: 'text', text: completion.data.choices[0].text.trim() };
   // use reply API
   return client.replyMessage(event.replyToken, echo);
 }
