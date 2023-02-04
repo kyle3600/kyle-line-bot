@@ -4,6 +4,11 @@ const line = require('@line/bot-sdk');
 const express = require('express');
 const { Configuration, OpenAIApi } = require("openai");
 
+// create openai
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(configuration);
 
 // create LINE SDK config from env variables
 const config = {
@@ -13,12 +18,6 @@ const config = {
 
 // create LINE SDK client
 const client = new line.Client(config);
-
-// create openai
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
 
 // create Express app
 // about Express itself: https://expressjs.com/
@@ -46,7 +45,7 @@ async function handleEvent(event) {
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
     prompt: event.message.text ,
-    max_tokens: 200,
+    max_tokens: 500,
   });
 
   // create a echoing text message
@@ -61,4 +60,3 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`listening on ${port}`);
 });
-
