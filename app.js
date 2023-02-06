@@ -41,12 +41,27 @@ async function handleEvent(event) {
     // ignore non-text-message event
     return Promise.resolve(null);
   }
+  if (event.message.text.startsWith("MDFKDBA")) {
+    const completion = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: event.message.text.substring(7),
+      max_tokens: 500
+    })
+    const echo = { type: "text", text: completion.data.choices[0].text.trim() };
+    return client.replyMessage(event.replyToken, echo);
+  }
 
-  const completion = await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: event.message.text ,
-    max_tokens: 500,
-  });
+  else if (event.message.text.startsWith("help")) {
+    const response = {
+      type: "text",
+      text: "問問題請輸入 MDFKDBA +問題 來詢問！"
+    }
+    return client.replyMessage(event.replyToken, response);
+  }
+  
+  else {
+    return client.replyMessage(event.replyToken, response);
+  }
 
   // create a echoing text message
   const echo = { type: 'text', text: completion.data.choices[0].text.trim() };
