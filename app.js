@@ -50,7 +50,7 @@ async function handleEvent(event) {
       max_tokens: 500
     })
     // use reply API
-    return client.replyMessage(event.replyToken, echo);
+    return client.replyMessage(event.replyToken, response);
   }
 
   //判斷提供功能表
