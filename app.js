@@ -46,7 +46,7 @@ async function handleEvent(event) {
   if (event.message.text.startsWith("hi kyle")) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: event.message.text.substring(8),
+      prompt: event.message.text.substring(7),
       max_tokens: 500
     })
     const echo = { type: "text", text: completion.data.choices[0].text.trim() };
