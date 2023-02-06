@@ -49,8 +49,9 @@ async function handleEvent(event) {
       prompt: event.message.text.substring(8),
       max_tokens: 500
     })
+    const echo = { type: "text", text: completion.data.choices[0].text.trim() };
     // use reply API
-    return client.replyMessage(event.replyToken, response);
+    return client.replyMessage(event.replyToken, echo);
   }
 
   //判斷提供功能表
@@ -65,7 +66,8 @@ async function handleEvent(event) {
 
   //此外不做事
   else {
-    return client.replyMessage(event.replyToken, response);
+    const echo = { type: 'text', text: completion.data.choices[0].text.trim() };
+    return client.replyMessage(event.replyToken, echo);
   }
 
 }
