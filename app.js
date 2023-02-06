@@ -42,17 +42,34 @@ async function handleEvent(event) {
     return Promise.resolve(null);
   }
 
-  const completion = await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: event.message.text ,
-    max_tokens: 500,
-  });
+  //判斷提供功能表
+  if (event.message.text.startsWith("功能表")) {
+    const response = {
+      type: "text",
+      text: "請輸入 'hi kyle + 描述' 發問或聊天"
+    }
+    // create a echoing text message
+    const echo = { type: "text", text: completion.data.choices[0].text.trim() };
+    // use reply API
+    return client.replyMessage(event.replyToken, echo);
+  }
+  //判斷hi kyle
+  else if (event.message.text.startsWith("hi kyle")) {
+    const completion = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: event.message.text.substring(7),
+      max_tokens: 500
+    })
+    // create a echoing text message
+    const echo = { type: "text", text: completion.data.choices[0].text.trim() };
+    // use reply API
+    return client.replyMessage(event.replyToken, echo);
+  }
+  //此外不做事
+  else {
+    ;
+  }
 
-  // create a echoing text message
-  const echo = { type: 'text', text: completion.data.choices[0].text.trim() };
-  
-  // use reply API
-  return client.replyMessage(event.replyToken, echo);
 }
 
 // listen on port
