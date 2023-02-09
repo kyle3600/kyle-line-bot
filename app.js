@@ -43,7 +43,7 @@ async function handleEvent(event) {
   }
 
 //判斷hi kyle
-  if (event.message.text.substring(7).toLowerCase()=== 'hi kyle' ) {
+  if (event.message.text.startsWith("hi kyle") || event.message.text.startsWith("Hi Kyle") || event.message.text.startsWith("Hi kyle") || event.message.text.startsWith("hi Kyle") ) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(7),
