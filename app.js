@@ -64,6 +64,16 @@ async function handleEvent(event) {
     return client.replyMessage(event.replyToken, response);
   }
 
+  //判斷提供功能表
+  else if (event.message.text.startsWith("wake up")) {
+    const response = {
+      type: "text",
+      text: "我起床了，請輸入 'hi kyle + 描述' 發問或聊天"
+    }
+    // use reply API
+    return client.replyMessage(event.replyToken, response);
+  }
+
   //此外不做事
   else {
     const echo = { type: 'text', text: completion.data.choices[0].text.trim() };
