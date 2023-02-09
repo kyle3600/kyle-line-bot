@@ -41,9 +41,9 @@ async function handleEvent(event) {
     // ignore non-text-message event
     return Promise.resolve(null);
   }
-  
-// 判斷hi kyle 大小寫
-  if (event.message.text.toLowerCase.startsWith() === 'hi kyle') {
+
+//判斷hi kyle
+  if (event.message.text.substring(7).toLowerCase()=== 'hi kyle' ) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(7),
