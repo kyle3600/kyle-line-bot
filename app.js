@@ -42,10 +42,11 @@ async function handleEvent(event) {
     return Promise.resolve(null);
   }
 
+//將字串轉小寫，之後的條件判斷使用 ltext.startsWith來判斷，但是程式碼呼叫時還是使用原字串event.message.text
   var ltext = event.message.text.toLowerCase();
 
 //判斷hi kyle
-  if (event.message.text.startsWith("hi kyle") || event.message.text.startsWith("Hi Kyle") || event.message.text.startsWith("Hi kyle") || event.message.text.startsWith("hi Kyle") ) {
+  if ( ltext.startsWith("hi kyle") ) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(7),
@@ -58,7 +59,7 @@ async function handleEvent(event) {
   }
 
   //判斷提供功能表
-  else if (event.message.text.startsWith("help")) {
+  else if ( ltext.startsWith("help")) {
     const response = {
       type: "text",
       text: "請輸入 'hi kyle + 描述' 發問或聊天"
