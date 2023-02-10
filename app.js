@@ -69,7 +69,7 @@ async function handleEvent(event) {
   }
 
   //判斷wake
-  else if ( ltext.catch("【wake】")) {
+  else if ( ltext.startsWith("【wake】")) {
     const response = {
       type: "text",
       text: "我起床了，請輸入 'hi kyle + 描述' 發問或聊天"
