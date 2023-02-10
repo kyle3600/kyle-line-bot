@@ -42,11 +42,14 @@ async function handleEvent(event) {
     return Promise.resolve(null);
   }
 
+  var ltext = event.message.text.toLowerCase();
+
 //判斷hi kyle
   if (event.message.text.startsWith("hi kyle") || event.message.text.startsWith("Hi Kyle") || event.message.text.startsWith("Hi kyle") || event.message.text.startsWith("hi Kyle") ) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(7),
+      temperature: 0.6,
       max_tokens: 500
     })
     const echo = { type: "text", text: completion.data.choices[0].text.trim() };
@@ -65,7 +68,7 @@ async function handleEvent(event) {
   }
 
   //判斷提供功能表
-  else if (event.message.text.startsWith("wake up")) {
+  else if ( ltext.startsWith("wake up")) {
     const response = {
       type: "text",
       text: "我起床了，請輸入 'hi kyle + 描述' 發問或聊天"
