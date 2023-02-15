@@ -103,6 +103,16 @@ async function handleEvent(event) {
     // use reply API
     return client.replyMessage(event.replyToken, response);
   }
+  
+  //判斷wake
+  else if ( ltext.startsWith("hi ado")) {
+    const response = {
+      type: "text",
+      text: "Azure devops is good !"
+    }
+    // use reply API
+    return client.replyMessage(event.replyToken, response);
+  }
 
   //判斷wake
   else if ( ltext.startsWith("wake")) {
