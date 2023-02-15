@@ -46,10 +46,46 @@ async function handleEvent(event) {
   var ltext = event.message.text.toLowerCase();
 
 //判斷hi kyle
-  if ( ltext.startsWith("hi kyle") ) {
+  if ( ltext.startsWith("hi bot") ) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(7),
+      temperature: 0.5,
+      max_tokens: 500
+    })
+    const echo = { type: "text", text: completion.data.choices[0].text.trim() };
+    // use reply API
+    return client.replyMessage(event.replyToken, echo);
+  }
+
+  else if ( ltext.startsWith("hi 月月鳥") ) {
+    const completion = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: event.message.text.substring(7),
+      temperature: 0.6,
+      max_tokens: 500
+    })
+    const echo = { type: "text", text: completion.data.choices[0].text.trim() };
+    // use reply API
+    return client.replyMessage(event.replyToken, echo);
+  }
+
+  else if ( ltext.startsWith("hi kyle") ) {
+    const completion = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: event.message.text.substring(8),
+      temperature: 0.6,
+      max_tokens: 500
+    })
+    const echo = { type: "text", text: completion.data.choices[0].text.trim() };
+    // use reply API
+    return client.replyMessage(event.replyToken, echo);
+  }
+
+  else if ( ltext.startsWith("hi jack") ) {
+    const completion = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: event.message.text.substring(8),
       temperature: 0.6,
       max_tokens: 500
     })
@@ -69,7 +105,7 @@ async function handleEvent(event) {
   }
 
   //判斷wake
-  else if ( ltext.startsWith("【wake】")) {
+  else if ( ltext.startsWith("wake")) {
     const response = {
       type: "text",
       text: "我起床了，請輸入 'hi kyle + 描述' 發問或聊天"
