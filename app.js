@@ -57,19 +57,21 @@ async function handleEvent(event) {
     // use reply API
     return client.replyMessage(event.replyToken, echo);
   }
-
+  
+  // 月月鳥 1
   else if ( ltext.startsWith("hi 月月鳥") ) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(7),
-      temperature: 0.6,
+      temperature: 1,
       max_tokens: 500
     })
     const echo = { type: "text", text: completion.data.choices[0].text.trim() };
     // use reply API
     return client.replyMessage(event.replyToken, echo);
   }
-
+  
+  // kyle 0.6
   else if ( ltext.startsWith("hi kyle") ) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
@@ -81,12 +83,13 @@ async function handleEvent(event) {
     // use reply API
     return client.replyMessage(event.replyToken, echo);
   }
-
+  
+  // jack 0
   else if ( ltext.startsWith("hi jack") ) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(8),
-      temperature: 0.6,
+      temperature: 0,
       max_tokens: 500
     })
     const echo = { type: "text", text: completion.data.choices[0].text.trim() };
