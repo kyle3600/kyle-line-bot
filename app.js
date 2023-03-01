@@ -45,13 +45,14 @@ async function handleEvent(event) {
 //將字串轉小寫，之後的條件判斷使用 ltext.startsWith來判斷，但是程式碼呼叫時還是使用原字串event.message.text
   var ltext = event.message.text.toLowerCase();
 
-//判斷hi kyle
+//判斷hi bot 0.7 + JB
   if ( ltext.startsWith("hi bot") ) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(7),
-      temperature: 0.5,
-      max_tokens: 500
+      temperature: 0.7,
+      max_tokens: 1000,
+      jailbroken: true
     })
     const echo = { type: "text", text: completion.data.choices[0].text.trim() };
     // use reply API
@@ -64,7 +65,7 @@ async function handleEvent(event) {
       model: "text-davinci-003",
       prompt: event.message.text.substring(7),
       temperature: 1,
-      max_tokens: 500
+      max_tokens: 1000
     })
     const echo = { type: "text", text: completion.data.choices[0].text.trim() };
     // use reply API
@@ -77,7 +78,7 @@ async function handleEvent(event) {
       model: "text-davinci-003",
       prompt: event.message.text.substring(8),
       temperature: 0.6,
-      max_tokens: 500
+      max_tokens: 1000
     })
     const echo = { type: "text", text: completion.data.choices[0].text.trim() };
     // use reply API
@@ -90,7 +91,7 @@ async function handleEvent(event) {
       model: "text-davinci-003",
       prompt: event.message.text.substring(8),
       temperature: 0,
-      max_tokens: 500
+      max_tokens: 1000
     })
     const echo = { type: "text", text: completion.data.choices[0].text.trim() };
     // use reply API
@@ -98,17 +99,20 @@ async function handleEvent(event) {
   }
 
   //判斷提供功能表
-  else if ( ltext.startsWith("help")) {
+  else if ( ltext=="help") {
     const response = {
       type: "text",
       text: "請輸入 'hi kyle + 描述' 發問或聊天"
+      //'hi bot + 描述'，越獄模式，比較可以問到非法的事
+      //'hi 月月鳥 + 描述'，回答比較跳躍，每次都不一樣
+      //'hi jack + 描述'，回答比較制式，每次都一樣
     }
     // use reply API
     return client.replyMessage(event.replyToken, response);
   }
   
   //判斷wake
-  else if ( ltext.startsWith("hi ado")) {
+  else if ( ltext =="hi ado") {
     const response = {
       type: "text",
       text: "Azure devops is good !"
