@@ -52,7 +52,8 @@ async function handleEvent(event) {
       prompt: event.message.text.substring(7),
       temperature: 0.7,
       max_tokens: 1000,
-      jailbroken: 'true',
+      //jailbroken: true,
+      jailbreak: true
     })
     const echo = { type: "text", text: completion.data.choices[0].text.trim() };
     // use reply API
