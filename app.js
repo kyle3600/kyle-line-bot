@@ -50,10 +50,10 @@ async function handleEvent(event) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(7),
-      temperature: 0.7,
+      temperature: 0.5,
       max_tokens: 1000,
       //jailbroken: true,
-      jailbreak: true
+      //jailbreak: true
     })
     const echo = { type: "text", text: completion.data.choices[0].text.trim() };
     // use reply API
@@ -78,7 +78,7 @@ async function handleEvent(event) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(8),
-      temperature: 0.6,
+      temperature: 0.7,
       max_tokens: 1000
     })
     const echo = { type: "text", text: completion.data.choices[0].text.trim() };
@@ -105,7 +105,7 @@ async function handleEvent(event) {
       type: "text",
       text: "請依照以下規則：\n" +
       "'hi kyle + 描述'，原版的chatgpt回答\n" + 
-      "'hi bot + 描述'，越獄模式，有機會回答非法的事\n" +
+      "'hi bot + 描述'，一半創意一半制式\n" +
       "'hi 月月鳥 + 描述'，回答比較創意，每次都不一樣\n" +
       "'hi jack + 描述'，回答比較制式，每次都一樣"
     }
@@ -127,7 +127,7 @@ async function handleEvent(event) {
   else if ( ltext.startsWith("wake")) {
     const response = {
       type: "text",
-      text: "我起床了，此版本是ver.0302"
+      text: "我起床了，此版本是ver.0302-1120"
     }
     // use reply API
     return client.replyMessage(event.replyToken, response);
