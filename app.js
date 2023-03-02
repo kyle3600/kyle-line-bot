@@ -52,7 +52,7 @@ async function handleEvent(event) {
       prompt: event.message.text.substring(7),
       temperature: 0.7,
       max_tokens: 1000,
-//      jailbroken: true,
+      jailbroken: 'true',
     })
     const echo = { type: "text", text: completion.data.choices[0].text.trim() };
     // use reply API
@@ -102,9 +102,10 @@ async function handleEvent(event) {
   else if ( ltext=="help") {
     const response = {
       type: "text",
-      text: "請輸入 'hi kyle + 描述' 發問或聊天\n" + 
-      "'hi bot + 描述'，越獄模式，比較可以問到非法的事\n" +
-      "'hi 月月鳥 + 描述'，回答比較跳躍，每次都不一樣\n" +
+      text: "請依照以下規則：\n" +
+      "'hi kyle + 描述'，原版的chatgpt回答\n" + 
+      "'hi bot + 描述'，越獄模式，有機會回答非法的事\n" +
+      "'hi 月月鳥 + 描述'，回答比較創意，每次都不一樣\n" +
       "'hi jack + 描述'，回答比較制式，每次都一樣"
     }
     // use reply API
@@ -125,7 +126,7 @@ async function handleEvent(event) {
   else if ( ltext.startsWith("wake")) {
     const response = {
       type: "text",
-      text: "我起床了，此版本是ver.0301"
+      text: "我起床了，此版本是ver.0302"
     }
     // use reply API
     return client.replyMessage(event.replyToken, response);
