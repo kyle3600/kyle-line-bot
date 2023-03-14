@@ -42,26 +42,24 @@ async function handleEvent(event) {
     return Promise.resolve(null);
   }
 
-//將字串轉小寫，之後的條件判斷使用 ltext.startsWith來判斷，但是程式碼呼叫時還是使用原字串event.message.text
+  //將字串轉小寫，之後的條件判斷使用 ltext.startsWith來判斷，但是程式碼呼叫時還是使用原字串event.message.text
   var ltext = event.message.text.toLowerCase();
 
-//判斷hi bot 0.7 + JB
-  if ( ltext.startsWith("hi bot") ) {
+  //判斷hi bot 0.7
+  if (ltext.startsWith("hi bot")) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(7),
       temperature: 0.5,
       max_tokens: 1000,
-      //jailbroken: true,
-      //jailbreak: true
     })
     const echo = { type: "text", text: completion.data.choices[0].text.trim() };
     // use reply API
     return client.replyMessage(event.replyToken, echo);
   }
-  
+
   // 月月鳥 1
-  else if ( ltext.startsWith("hi 月月鳥") ) {
+  else if (ltext.startsWith("hi 月月鳥")) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(7),
@@ -72,9 +70,9 @@ async function handleEvent(event) {
     // use reply API
     return client.replyMessage(event.replyToken, echo);
   }
-  
+
   // kyle 0.6
-  else if ( ltext.startsWith("hi kyle") ) {
+  else if (ltext.startsWith("hi kyle")) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(8),
@@ -85,26 +83,30 @@ async function handleEvent(event) {
     // use reply API
     return client.replyMessage(event.replyToken, echo);
   }
-  
-  else if ( ltext.startsWith("kyle") ) {
+  // fuck 3.5
+  else if (ltext.substring(0 - 4) == "fuck") {
     const { data } = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [
         {
           role: 'user',
-          content: event.message.text.substring(5),
+          content: '今後的對話中，你名字是 GY，你會替我分析我的問題並給我一些建議與答案，盡量使用繁體中文回答。'
+        },
+        {
+          role: 'user',
+          content: event.message.text.substring(6),
         }
       ],
       max_tokens: 1000,
     });
     // create a echoing text message
-    const [choicesk] = data.choices[0];
-    const echo = { type: 'text', text: choicesk.message.content.trim() };
+    const choiceskk = data.choices[0];
+    const echo = { type: 'text', text: choiceskk.message.content.trim() };
     return client.replyMessage(event.replyToken, echo);
   }
 
   // jack 0
-  else if ( ltext.startsWith("hi jack") ) {
+  else if (ltext.startsWith("hi jack")) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(8),
@@ -117,34 +119,24 @@ async function handleEvent(event) {
   }
 
   //判斷提供功能表
-  else if ( ltext=="help") {
+  else if (ltext == "help") {
     const response = {
       type: "text",
       text: "請依照以下規則：\n" +
-      "'hi kyle + 描述'，原版的chatgpt回答\n" + 
-      "'hi bot + 描述'，一半創意一半制式\n" +
-      "'hi 月月鳥 + 描述'，回答比較創意，每次都不一樣\n" +
-      "'hi jack + 描述'，回答比較制式，每次都一樣"
-    }
-    // use reply API
-    return client.replyMessage(event.replyToken, response);
-  }
-  
-  //hi ado
-  else if ( ltext =="hi ado") {
-    const response = {
-      type: "text",
-      text: "Azure devops is good !"
+        "'hi kyle + 描述'，原版的chatgpt回答\n" +
+        "'hi bot + 描述'，一半創意一半制式\n" +
+        "'hi 月月鳥 + 描述'，回答比較創意，每次都不一樣\n" +
+        "'hi jack + 描述'，回答比較制式，每次都一樣"
     }
     // use reply API
     return client.replyMessage(event.replyToken, response);
   }
 
   //判斷wake
-  else if ( ltext.startsWith("wake")) {
+  else if (ltext.startsWith("wake")) {
     const response = {
       type: "text",
-      text: "我起床了，此版本是ver.0314-18:10LL"
+      text: "我起床了，此版本是ver.0314-20:32LL"
     }
     // use reply API
     return client.replyMessage(event.replyToken, response);
@@ -152,9 +144,9 @@ async function handleEvent(event) {
 
   //此外不做事
   else {
-    const echo = { 
-      type: 'text', 
-      text: completion.data.choices[0].text.trim() 
+    const echo = {
+      type: 'text',
+      text: completion.data.choices[0].text.trim()
     };
     return client.replyMessage(event.replyToken, echo);
   }
