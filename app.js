@@ -100,6 +100,7 @@ async function handleEvent(event) {
     // create a echoing text message
     const [choices] = data.choices;
     const echo = { type: 'text', text: choices.message.content[0].text.trim() || 'MDFKDBA!' };
+    return client.replyMessage(event.replyToken, echo);
   }
   // jack 0
   else if ( ltext.startsWith("hi jack") ) {
