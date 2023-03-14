@@ -86,6 +86,21 @@ async function handleEvent(event) {
     return client.replyMessage(event.replyToken, echo);
   }
   
+  else if ( ltext.startsWith("hi kyle2") ) {
+    const { data } = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: 'user',
+          content: event.message.text.substring(9),
+        }
+      ],
+      max_tokens: 1000,
+    });
+    // create a echoing text message
+    const [choices] = data.choices;
+    const echo = { type: 'text', text: choices.message.content[0].text.trim() || 'MDFKDBA!' };
+  }
   // jack 0
   else if ( ltext.startsWith("hi jack") ) {
     const completion = await openai.createCompletion({
