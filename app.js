@@ -46,7 +46,7 @@ async function handleEvent(event) {
   var ltext = event.message.text.toLowerCase();
 
   //判斷hi bot 0.7
-  if (ltext.startsWith("hi bot")) {
+  if (ltext.substring(0 - 6) == "hi bot") {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(7),
@@ -59,7 +59,7 @@ async function handleEvent(event) {
   }
 
   // 月月鳥 1
-  else if (ltext.startsWith("hi 月月鳥")) {
+  else if (ltext.substring(0 - 6) == "hi 月月鳥") {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(7),
@@ -72,7 +72,7 @@ async function handleEvent(event) {
   }
 
   // kyle 0.6
-  else if (ltext.startsWith("hi kyle")) {
+  else if (ltext.substring(0 - 7) == "hi kyle") {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(8),
@@ -106,7 +106,7 @@ async function handleEvent(event) {
   }
 
   // jack 0
-  else if (ltext.startsWith("hi jack")) {
+  else if (ltext.substring(0 - 7) == "hi jack") {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(8),
@@ -144,11 +144,7 @@ async function handleEvent(event) {
 
   //此外不做事
   else {
-    const echo = {
-      type: 'text',
-      text: completion.data.choices[0].text.trim()
-    };
-    return client.replyMessage(event.replyToken, echo);
+    return Promise.resolve(null);
   }
 
 }
