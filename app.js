@@ -98,10 +98,11 @@ async function handleEvent(event) {
       max_tokens: 1000,
     });
     // create a echoing text message
-    const {choices} = data.choices[0];
-    const echo = { type: 'text', text: choices.message.content[0].text.trim() };
+    const [choicesk] = data.choices[0];
+    const echo = { type: 'text', text: choicesk.message.content.trim() };
     return client.replyMessage(event.replyToken, echo);
   }
+
   // jack 0
   else if ( ltext.startsWith("hi jack") ) {
     const completion = await openai.createCompletion({
@@ -143,7 +144,7 @@ async function handleEvent(event) {
   else if ( ltext.startsWith("wake")) {
     const response = {
       type: "text",
-      text: "我起床了，此版本是ver.0314-17:54"
+      text: "我起床了，此版本是ver.0314-18:10LL"
     }
     // use reply API
     return client.replyMessage(event.replyToken, response);
