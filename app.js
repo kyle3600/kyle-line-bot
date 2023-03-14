@@ -86,13 +86,13 @@ async function handleEvent(event) {
     return client.replyMessage(event.replyToken, echo);
   }
   
-  else if ( ltext.startsWith("hi kyle2") ) {
+  else if ( ltext.startsWith("kyle") ) {
     const { data } = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [
         {
           role: 'user',
-          content: event.message.text.substring(9),
+          content: event.message.text.substring(5),
         }
       ],
       max_tokens: 1000,
@@ -142,7 +142,7 @@ async function handleEvent(event) {
   else if ( ltext.startsWith("wake")) {
     const response = {
       type: "text",
-      text: "我起床了，此版本是ver.0302-1120"
+      text: "我起床了，此版本是ver.0314-1714"
     }
     // use reply API
     return client.replyMessage(event.replyToken, response);
