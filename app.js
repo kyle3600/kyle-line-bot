@@ -98,7 +98,7 @@ async function handleEvent(event) {
       max_tokens: 1000,
     });
     // create a echoing text message
-    const [choices] = data.choices;
+    const {choices} = data.choices[0];
     const echo = { type: 'text', text: choices.message.content[0].text.trim() || 'MDFKDBA!' };
     return client.replyMessage(event.replyToken, echo);
   }
@@ -143,7 +143,7 @@ async function handleEvent(event) {
   else if ( ltext.startsWith("wake")) {
     const response = {
       type: "text",
-      text: "我起床了，此版本是ver.0314-1714"
+      text: "我起床了，此版本是ver.0314-17:41"
     }
     // use reply API
     return client.replyMessage(event.replyToken, response);
