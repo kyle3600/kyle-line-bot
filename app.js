@@ -99,7 +99,7 @@ async function handleEvent(event) {
     });
     // create a echoing text message
     const {choices} = data.choices[0];
-    const echo = { type: 'text', text: choices.message.content[0].text.trim() || 'MDFKDBA!' };
+    const echo = { type: 'text', text: choices.message.content[0].text.trim() };
     return client.replyMessage(event.replyToken, echo);
   }
   // jack 0
@@ -143,7 +143,7 @@ async function handleEvent(event) {
   else if ( ltext.startsWith("wake")) {
     const response = {
       type: "text",
-      text: "我起床了，此版本是ver.0314-17:41"
+      text: "我起床了，此版本是ver.0314-17:54"
     }
     // use reply API
     return client.replyMessage(event.replyToken, response);
