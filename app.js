@@ -106,7 +106,7 @@ async function handleEvent(event) {
         type: 'text',
         text: choices.message.content.trim()
     };
-    console.log("回應內容:", stageCallSign+ ':' +choices.message.content.trim());
+    console.log("回應內容:", choices.message.content.trim());
   }
   else if (ltext.startsWith("kyle")) {
     const { data } = await openai.createChatCompletion({
