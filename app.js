@@ -102,7 +102,7 @@ async function handleEvent(event) {
     });
     // create a echoing text message
     const [choices = {}] = data.choices;
-    echo = {
+    const echo = {
         type: 'text',
         text: choices.message.content.trim()
     };
@@ -125,11 +125,13 @@ async function handleEvent(event) {
       max_tokens: 1000,
     });
     // create a echoing text message
-    const choiceskk = data.choices[0];
+    //const choiceskk = data.choices[0];
+    const [choiceskk = {}] = data.choices;
     echo = { 
       type: 'text', 
       text: choiceskk.message.content.trim() 
     };
+    console.log("回應內容:", choices.message.content.trim());
     return client.replyMessage(event.replyToken, echo);
   }
 
