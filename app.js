@@ -90,18 +90,21 @@ async function handleEvent(event) {
       messages: [
         {
           role: 'user',
-          content: '今後的對話中，你名字是 GY，你會替我分析我的問題並給我一些建議與答案，盡量使用繁體中文回答。'
+          content: '今後的對話中，你名字是noAI，你會替我分析我的問題並給我一些建議與答案，盡量使用繁體中文回答，並在回答前加上"MDFKDBA:"'
         },
         {
           role: 'user',
-          content: event.message.text.substring(5),
+          content: event.message.text.substring("kyle"),
         }
       ],
       max_tokens: 1000,
     });
     // create a echoing text message
     const choiceskk = data.choices[0];
-    echo = { type: 'text', text: choiceskk.message.content.trim() };
+    echo = { 
+      type: 'text', 
+      text: choiceskk.message.content.trim() 
+    };
     return client.replyMessage(event.replyToken, echo);
   }
 
@@ -137,7 +140,7 @@ async function handleEvent(event) {
   else if (ltext.startsWith("wake")) {
     const response = {
       type: "text",
-      text: "我起床了，此版本是ver.03161700LL"
+      text: "我起床了，此版本是ver.03161725LL"
     }
     // use reply API
     return client.replyMessage(event.replyToken, response);
