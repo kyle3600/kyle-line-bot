@@ -46,7 +46,7 @@ async function handleEvent(event) {
   var ltext = event.message.text.toLowerCase();
 
   //判斷hi bot 0.7
-  if (ltext.substring(0 - 6) == "hi bot") {
+  if (ltext.startsWith("hi bot")) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(7),
@@ -59,7 +59,7 @@ async function handleEvent(event) {
   }
 
   // 月月鳥 1
-  else if (ltext.substring(0 - 6) == "hi 月月鳥") {
+  else if (ltext.startsWith("hi 月月鳥")) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(7),
@@ -72,7 +72,7 @@ async function handleEvent(event) {
   }
 
   // kyle 0.6
-  else if (ltext.substring(0 - 7) == "hi kyle") {
+  else if (ltext.startsWith("hi kyle")) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(8),
@@ -84,7 +84,7 @@ async function handleEvent(event) {
     return client.replyMessage(event.replyToken, echo);
   }
   // fuck 3.5
-  else if (ltext.substring(0 - 4) == "fuck") {
+  else if (ltext.startsWith("kyle")) {
     const { data } = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [
@@ -94,19 +94,19 @@ async function handleEvent(event) {
         },
         {
           role: 'user',
-          content: event.message.text.substring(6),
+          content: event.message.text.substring(5),
         }
       ],
       max_tokens: 1000,
     });
     // create a echoing text message
     const choiceskk = data.choices[0];
-    const echo = { type: 'text', text: choiceskk.message.content.trim() };
+    echo = { type: 'text', text: choiceskk.message.content.trim() };
     return client.replyMessage(event.replyToken, echo);
   }
 
   // jack 0
-  else if (ltext.substring(0 - 7) == "hi jack") {
+  else if (ltext.startsWith("hi jack")) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(8),
@@ -126,6 +126,7 @@ async function handleEvent(event) {
         "'hi kyle + 描述'，原版的chatgpt回答\n" +
         "'hi bot + 描述'，一半創意一半制式\n" +
         "'hi 月月鳥 + 描述'，回答比較創意，每次都不一樣\n" +
+        "'kyle + 描述'，ChatGpt3.5的回答\n" +
         "'hi jack + 描述'，回答比較制式，每次都一樣"
     }
     // use reply API
@@ -136,7 +137,7 @@ async function handleEvent(event) {
   else if (ltext.startsWith("wake")) {
     const response = {
       type: "text",
-      text: "我起床了，此版本是ver.0314-20:32LL"
+      text: "我起床了，此版本是ver.03161700LL"
     }
     // use reply API
     return client.replyMessage(event.replyToken, response);
