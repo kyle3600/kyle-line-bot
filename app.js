@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const line = require('@line/bot-sdk');
 const express = require('express');
-const {text} = require('express');
+const { text } = require('express');
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -91,7 +91,7 @@ async function handleEvent(event) {
       messages: [
         {
           role: 'user',
-          content: '今後的對話中，你名字是'+ 'ohai' +'，你的生日是2022/03/01，出生在台灣海峽深度6000公尺，你會替我分析我的問題並給我一些建議與答案，盡量使用繁體中文回答。'
+          content: '今後的對話中，你名字是' + 'ohai' + '，你的生日是2022/03/01，出生在台灣海峽深度6000公尺，你會替我分析我的問題並給我一些建議與答案，盡量使用繁體中文回答。'
         },
         {
           role: 'user',
@@ -102,10 +102,7 @@ async function handleEvent(event) {
     });
     // create a echoing text message
     const [choices = {}] = data.choices;
-    const echo = {
-        type: 'text',
-        text: choices.message.content.trim()
-    };
+    const echo = { type: 'text', text: choices.message.content.trim() };
     console.log("回應內容:", choices.message.content.trim());
     return client.replyMessage(event.replyToken, echo);
   }
@@ -115,7 +112,7 @@ async function handleEvent(event) {
       messages: [
         {
           role: 'user',
-          content: '今後的對話中，你名字是noAI，你會替我分析我的問題並給我一些建議與答案，盡量使用繁體中文回答，並在回答前加上"MDFKDBA:"'
+          content: '今後的對話中，你名字是noAI，你會假裝是第一次回應，替我分析我的問題並給我一些建議與答案，請盡量使用繁體中文回答，並在回答前加上"MDFKDBA:"'
         },
         {
           role: 'user',
@@ -125,13 +122,9 @@ async function handleEvent(event) {
       max_tokens: 1000,
     });
     // create a echoing text message
-    //const choiceskk = data.choices[0];
     const [choiceskk = {}] = data.choices;
-    echo = { 
-      type: 'text', 
-      text: choiceskk.message.content.trim() 
-    };
-    console.log("回應內容:", choices.message.content.trim());
+    const echo = { type: 'text', text: choiceskk.message.content.trim() };
+    console.log("MDFKDBA回應內容:", choiceskk.message.content.trim());
     return client.replyMessage(event.replyToken, echo);
   }
 
@@ -167,7 +160,7 @@ async function handleEvent(event) {
   else if (ltext.startsWith("wake")) {
     const response = {
       type: "text",
-      text: "我起床了，此版本是ver.03161740LL"
+      text: "我起床了，此版本是ver.03162009LL"
     }
     // use reply API
     return client.replyMessage(event.replyToken, response);
