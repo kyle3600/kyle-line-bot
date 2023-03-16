@@ -85,17 +85,17 @@ async function handleEvent(event) {
     return client.replyMessage(event.replyToken, echo);
   }
   // fuck 3.5
-  else if (inputText.startsWith('gg')) {
+  else if (ltext.startsWith('ohai')) {
     const { data } = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [
         {
           role: 'user',
-          content: '今後的對話中，你名字是'+ 'ai' +'，你的生日是2022/12/01，出生在台東，你會替我分析我的問題並給我一些建議與答案，盡量使用繁體中文回答。'
+          content: '今後的對話中，你名字是'+ 'ohai' +'，你的生日是2022/03/01，出生在台灣海峽深度6000公尺，你會替我分析我的問題並給我一些建議與答案，盡量使用繁體中文回答。'
         },
         {
           role: 'user',
-          content: event.message.text.substring('gg'),
+          content: event.message.text.substring('ohai'),
         }
       ],
       max_tokens: 1000,
@@ -164,7 +164,7 @@ async function handleEvent(event) {
   else if (ltext.startsWith("wake")) {
     const response = {
       type: "text",
-      text: "我起床了，此版本是ver.03161725LL"
+      text: "我起床了，此版本是ver.03161740LL"
     }
     // use reply API
     return client.replyMessage(event.replyToken, response);
