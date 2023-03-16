@@ -107,6 +107,7 @@ async function handleEvent(event) {
         text: choices.message.content.trim()
     };
     console.log("回應內容:", choices.message.content.trim());
+    return client.replyMessage(event.replyToken, echo);
   }
   else if (ltext.startsWith("kyle")) {
     const { data } = await openai.createChatCompletion({
