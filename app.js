@@ -2,12 +2,13 @@ require('dotenv').config();
 
 const line = require('@line/bot-sdk');
 const express = require('express');
+const {text} = require('express');
 const { Configuration, OpenAIApi } = require("openai");
-
-// create openai
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
+
+// create openai
 const openai = new OpenAIApi(configuration);
 
 // create LINE SDK config from env variables
@@ -84,6 +85,29 @@ async function handleEvent(event) {
     return client.replyMessage(event.replyToken, echo);
   }
   // fuck 3.5
+  else if (inputText.startsWith('gg')) {
+    const { data } = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: 'user',
+          content: '今後的對話中，你名字是'+ 'ai' +'，你的生日是2022/12/01，出生在台東，你會替我分析我的問題並給我一些建議與答案，盡量使用繁體中文回答。'
+        },
+        {
+          role: 'user',
+          content: event.message.text.substring('gg'),
+        }
+      ],
+      max_tokens: 1000,
+    });
+    // create a echoing text message
+    const [choices = {}] = data.choices;
+    echo = {
+        type: 'text',
+        text: choices.message.content.trim()
+    };
+    console.log("回應內容:", stageCallSign+ ':' +choices.message.content.trim());
+  }
   else if (ltext.startsWith("kyle")) {
     const { data } = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
