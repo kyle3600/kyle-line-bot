@@ -116,7 +116,7 @@ async function handleEvent(event) {
         },
         {
           role: 'user',
-          content: event.message.text.substring("kyle"),
+          content: event.message.text.substring("5"),
         }
       ],
       max_tokens: 1000,
