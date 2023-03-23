@@ -51,7 +51,7 @@ async function handleEvent(event) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: event.message.text.substring(7),
-      temperature: 0.5,
+      temperature: 0.7,
       max_tokens: 1000,
     })
     const echo = { type: "text", text: completion.data.choices[0].text.trim() };
@@ -72,18 +72,6 @@ async function handleEvent(event) {
     return client.replyMessage(event.replyToken, echo);
   }
 
-  // kyle 0.6
-  else if (ltext.startsWith("hi kyle")) {
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: event.message.text.substring(8),
-      temperature: 0.7,
-      max_tokens: 1000
-    })
-    const echo = { type: "text", text: completion.data.choices[0].text.trim() };
-    // use reply API
-    return client.replyMessage(event.replyToken, echo);
-  }
   // fuck 3.5
   else if (ltext.startsWith('ohai')) {
     const { data } = await openai.createChatCompletion({
@@ -106,7 +94,7 @@ async function handleEvent(event) {
     console.log("回應內容:", choices.message.content.trim());
     return client.replyMessage(event.replyToken, echo);
   }
-  else if (ltext.startsWith("kyle")) {
+  else if (ltext.startsWith("mdfkdba")) {
     const { data } = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [
@@ -116,7 +104,7 @@ async function handleEvent(event) {
         },
         {
           role: 'user',
-          content: event.message.text.substring("5"),
+          content: event.message.text.substring('mdfkdba'),
         }
       ],
       max_tokens: 1000,
@@ -163,9 +151,8 @@ async function handleEvent(event) {
     const response = {
       type: "text",
       text: "請依照以下規則：\n" +
-        "'hi kyle + 描述'，chatgpt 3.0 標準回答\n" +
-        "'hi bot + 描述'，chatgpt 3.0 一半創意一半制式\n" +
-        "'hi 月月鳥 + 描述'，chatgpt 3.0 創意多樣，每次都不一樣\n" +
+        "'hi bot + 描述'，chatgpt 3.0 標準回答\n" +
+        "'hi 月月鳥 + 描述'，chatgpt 3.0 回答創意，每次都不一樣\n" +
         "'hi jack + 描述'，chatgpt 3.0 回答固定，每次都一樣\n" +
         "'ohai + 描述'，ChatGpt3.5 的回答\n" +
         "'gg + 描述'，產出設計圖片或logo"
@@ -178,7 +165,7 @@ async function handleEvent(event) {
   else if (ltext.startsWith("wake")) {
     const response = {
       type: "text",
-      text: "我起床了，此版本是ver.03231720LL"
+      text: "我起床了，此版本是ver.03231800LL"
     }
     // use reply API
     return client.replyMessage(event.replyToken, response);
