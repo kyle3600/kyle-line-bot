@@ -141,13 +141,17 @@ async function handleEvent(event) {
     return client.replyMessage(event.replyToken, echo);
   }
   // 新增gg 來產生圖片
-  else if (inputText.startsWith('gg')) {
-    const completion = await openai.createImage({
+  else if (ltext.startsWith("gg")) {
+    const completion = await openai.complete({
+        engine: "image-alpha-001",
         prompt: event.message.text.substring(gg),
+        max_tokens: 0,
         n: 1,
         size: "256x256",
+        response_format: "url"
     });
-    image_url = completion.data.data[0].url;
+    const image_url = completion.data.choices[0].text.trim();
+    //image_url = completion.data.data[0].url;
     // create a echoing text message
     console.log("回應內容:", image_url);
     echo = {
@@ -165,7 +169,7 @@ async function handleEvent(event) {
         "'hi kyle + 描述'，chatgpt 3.0 標準回答\n" +
         "'hi bot + 描述'，chatgpt 3.0 一半創意一半制式\n" +
         "'hi 月月鳥 + 描述'，chatgpt 3.0 創意回答，每次都不一樣\n" +
-        "'hi jack + 描述'，回答比較制式，每次都一樣\n" ＋
+        "'hi jack + 描述'，回答比較制式，每次都一樣\n" +
         "'ohai + 描述'，ChatGpt3.5 的回答"
     }
     // use reply API
