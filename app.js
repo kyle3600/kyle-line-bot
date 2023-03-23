@@ -100,7 +100,7 @@ async function handleEvent(event) {
       messages: [
         {
           role: 'user',
-          content: '今後的對話中，你名字是noAI，你會假裝是第一次回應，替我分析我的問題並給我一些建議與答案，請盡量使用繁體中文回答，並在回答前加上"MDFKDBA:"'
+          content: '今後的對話中，你的名字是MDFKDBA，是一種低等級AI，興趣是性騷擾女性同仁，你會假裝是第一次回應，永遠使用繁體中文回答，所有回答開頭顯示"SSH説："'
         },
         {
           role: 'user',
