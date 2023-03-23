@@ -144,7 +144,7 @@ async function handleEvent(event) {
   else if (ltext.startsWith("gg")) {
     const completion = await openai.complete({
         engine: "image-alpha-001",
-        prompt: event.message.text.substring(gg),
+        prompt: event.message.text.substring('gg'),
         max_tokens: 0,
         n: 1,
         size: "256x256",
