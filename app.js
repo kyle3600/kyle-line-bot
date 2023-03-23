@@ -148,8 +148,7 @@ async function handleEvent(event) {
         size: "256x256",
         response_format: "url"
     });
-    const image_url = completion.data.choices[0].text.trim();
-    //image_url = completion.data.data[0].url;
+    image_url = completion.data.data[0].url;
     // create a echoing text message
     console.log("回應內容:", image_url);
     echo = {
