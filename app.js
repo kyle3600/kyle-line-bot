@@ -142,10 +142,8 @@ async function handleEvent(event) {
   }
   // 新增gg 來產生圖片
   else if (ltext.startsWith("gg")) {
-    const completion = await openai.complete({
-        engine: "image-alpha-001",
+    const completion = await openai.createImage({
         prompt: event.message.text.substring('gg'),
-        max_tokens: 0,
         n: 1,
         size: "256x256",
         response_format: "url"
