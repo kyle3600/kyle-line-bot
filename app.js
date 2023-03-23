@@ -140,7 +140,23 @@ async function handleEvent(event) {
     // use reply API
     return client.replyMessage(event.replyToken, echo);
   }
-
+  // 新增gg 來產生圖片
+  else if (inputText.startsWith('gg')) {
+    const completion = await openai.createImage({
+        prompt: event.message.text.substring(gg),
+        n: 1,
+        size: "256x256",
+    });
+    image_url = completion.data.data[0].url;
+    // create a echoing text message
+    console.log("回應內容:", image_url);
+    echo = {
+        type: 'image',
+        originalContentUrl: image_url,
+        previewImageUrl: image_url
+    };
+    return client.replyMessage(event.replyToken, echo);
+  }
   //判斷提供功能表
   else if (ltext == "help") {
     const response = {
