@@ -165,9 +165,10 @@ async function handleEvent(event) {
       text: "請依照以下規則：\n" +
         "'hi kyle + 描述'，chatgpt 3.0 標準回答\n" +
         "'hi bot + 描述'，chatgpt 3.0 一半創意一半制式\n" +
-        "'hi 月月鳥 + 描述'，chatgpt 3.0 創意回答，每次都不一樣\n" +
-        "'hi jack + 描述'，回答比較制式，每次都一樣\n" +
-        "'ohai + 描述'，ChatGpt3.5 的回答"
+        "'hi 月月鳥 + 描述'，chatgpt 3.0 創意多樣，每次都不一樣\n" +
+        "'hi jack + 描述'，chatgpt 3.0 回答固定，每次都一樣\n" +
+        "'ohai + 描述'，ChatGpt3.5 的回答\n" +
+        "'gg + 描述'，產出設計圖片或logo"
     }
     // use reply API
     return client.replyMessage(event.replyToken, response);
@@ -177,7 +178,7 @@ async function handleEvent(event) {
   else if (ltext.startsWith("wake")) {
     const response = {
       type: "text",
-      text: "我起床了，此版本是ver.03231630LL"
+      text: "我起床了，此版本是ver.03231720LL"
     }
     // use reply API
     return client.replyMessage(event.replyToken, response);
