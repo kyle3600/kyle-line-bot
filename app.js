@@ -94,6 +94,7 @@ async function handleEvent(event) {
     console.log("回應內容:", choices.message.content.trim());
     return client.replyMessage(event.replyToken, echo);
   }
+  // mdfkdba 3.5
   else if (ltext.startsWith("mdfkdba")) {
     const { data } = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
@@ -113,6 +114,34 @@ async function handleEvent(event) {
     const [choiceskk = {}] = data.choices;
     const echo = { type: 'text', text: choiceskk.message.content.trim() };
     console.log("MDFKDBA回應內容:", choiceskk.message.content.trim());
+    return client.replyMessage(event.replyToken, echo);
+  }
+  // mdfkbook 3.5
+  else if (ltext.startsWith("mdfkbook")) {
+    const openai = new OpenAIApi(configuration);
+    openai.api_key = "c8fc16b8148e483ca6b99c1cb54ae726";
+    openai.api_base = "https://openai-cdfh-scus-dev-ai-01.openai.azure.com/";
+    openai.api_version = "2023-03-15-preview";
+
+    const { data } = await openai.createChatCompletion({
+      engine: "CDFH-CTTeam",
+      messages: [
+        {
+          role: 'user',
+          content: '今後的對話中，你的名字是MDFKBOOK，是一種靠腰AI，興趣是欺負yoya，你會假裝是第一次回應，永遠使用繁體中文回答，所有回答開頭顯示"SSH説："'
+        },
+        {
+          role: 'user',
+          content: event.message.text.substring('mdfkbook'),
+        }
+      ],
+      max_tokens: 1000,
+    });
+
+    // create a echoing text message
+    const [choiceskk = {}] = data.choices;
+    const echo = { type: 'text', text: choiceskk.message.content.trim() };
+    console.log("MDFKBOOK回應內容:", choiceskk.message.content.trim());
     return client.replyMessage(event.replyToken, echo);
   }
 
